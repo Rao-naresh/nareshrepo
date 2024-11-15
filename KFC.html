@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KFC Order</title>
+        <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <style>
+        #dataList{
+            display: grid;
+            grid-template-columns: 4fr 8fr;
+        }     
+    </style>
+    <script>
+          function fn(){
+            var nameref=document.getElementById("txtName").value
+            var mobileref=document.getElementById("txtMobile").value
+            var mealsRef1=document.getElementById("1stMeals")
+            var mealsRef2=document.getElementById("2ndMeals")
+            if(nameref && mobileref && mealsRef1.checked || mealsRef2.checked){
+                document.getElementById("orderButton").disabled=false
+            } 
+          } 
+        function orderClick(){
+            var nameref=document.getElementById("txtName").value
+            var mobileref=document.getElementById("txtMobile").value
+            document.getElementById("lblname").innerHTML=nameref;
+            document.getElementById("lblmobile").innerHTML=mobileref;
+            var mealsRef1=document.getElementById("1stMeals")
+            var mealsRef2=document.getElementById("2ndMeals")
+            var adon1=document.getElementById("1stAdon")
+            var adon2=document.getElementById("2ndAdon") 
+            
+            var adonName=""
+            var mealCost=0
+            var adonCost=0
+            var total=0
+            if(mealsRef1.checked){
+                document.getElementById("lblmeals").innerHTML=mealsRef1.value
+                mealCost=120
+            }
+            if(mealsRef2.checked){
+                document.getElementById("lblmeals").innerHTML=mealsRef2.value
+                mealCost=150
+            }
+            if(adon1.checked){
+                adonName+=adon1.value+"<br>"
+                adonCost=60
+                mealCost+=adonCost
+            }
+            if(adon2.checked){
+                adonName+=adon2.value+"<br>"
+                adonCost=100
+                mealCost+=adonCost
+            }  
+            total=mealCost
+            document.getElementById("lbladon").innerHTML=adonName
+            document.getElementById("lbltotal").innerHTML=total
+            
+        }
+    </script>
+    <body class="container-fluid">
+        <header>
+            <img src="../images/kfc top.jpg" height="300px" width="100%">
+        </header>
+        <section>
+            <div class="accordion" id="parent-accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button bg-danger text-white" data-bs-target="#1st-btn" data-bs-toggle="collapse">custmer Information</button>
+                    </div>
+                    <div class="accordion-collapse collapse" id="1st-btn" data-bs-parent="#parent-accordion">
+                        <div class="accordion-body">
+                            <b>Name:</b><input type="text" class="form-control" id="txtName" onchange="fn()">
+                            <b>mobile:</b><input type="text" class="form-control" id="txtMobile" onchange="fn()">
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button bg-danger text-white" data-bs-target="#2nd-btn" data-bs-toggle="collapse">Meals</button>
+                    </div>
+                    <div class="accordion-collapse collapse" id="2nd-btn" data-bs-parent="#parent-accordion">
+                        <div class="accordion-body">
+                          <div class="row">
+                            <div class="col">
+                                <div class="card text-center">
+                                    <img src="../images/Burger.jpg" height="300px" >
+                                    <div class="card-body">
+                                        <h3>&#8377;120/-</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <input type="radio" name="meals" id="1stMeals" value="burger" class="form-check-input" onchange="fn()"> Burger
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card text-center">
+                                    <img src="../images/BK kfc.jpg" height="300px" >
+                                    <div class="card-body">
+                                        <h3>&#8377;150/-</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <input type="radio" name="meals" id="2ndMeals" value="burger-with-chicken" class="form-check-input" onchange="fn()"> Burger with Chicken
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button id="order-btn" class="accordion-button bg-danger text-white" data-bs-target="#3rd-btn" data-bs-toggle="collapse">Adon</button>
+                    </div>
+                    <div class="accordion-collapse collapse" id="3rd-btn" data-bs-parent="#parent-accordion">
+                        <div class="accordion-body">
+                          <div class="row">
+                            <div class="col">
+                                <div class="card text-center">
+                                    <img src="../images/Fried.jpg" height="300px" >
+                                    <div class="card-body">
+                                        <h3>&#8377;60/-</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <input type="checkbox"  id="1stAdon" value="fried" class="form-check-input">Frieds
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card text-center">
+                                    <img src="../images/Chiken Bucket.jpg" height="300px" >
+                                    <div class="card-body">
+                                        <h3>&#8377;100/-</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <input type="checkbox" id="2ndAdon" value="chicken-bucket" class="form-check-input">Chicken-Bucket
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+        <fotter>
+            <button onclick="orderClick()" id="orderButton" title="please enter custmer details.." class="btn btn-danger w-100" data-bs-target="#Details" data-bs-toggle="modal" disabled>Order</button>
+        </fotter>
+        <div class="modal fade" id="Details">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Your Order Details</h2>
+                        <button class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <dl id="dataList">
+                            <dt>Custmer Name :</dt>
+                            <dd id="lblname"></dd>
+                            <dt>Mobile Number :</dt>
+                            <dd id="lblmobile"></dd>
+                            <dt>Meals Item :</dt>
+                            <dd id="lblmeals"></dd>
+                            <dt>Adon Item :</dt>
+                            <dd id="lbladon"></dd>
+                            <dt>Total Amount :</dt>
+                            <dd id="lbltotal"></dd>
+                        </dl>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info" data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+    </body>
+</html>
